@@ -5,3 +5,4 @@ onnxruntime
 moviepy
 scikit-learn
 skl2onnx
+fpdf
