@@ -1,0 +1,7 @@
+streamlit
+librosa
+numpy
+onnxruntime
+moviepy
+scikit-learn
+skl2onnx

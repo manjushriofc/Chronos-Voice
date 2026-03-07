@@ -1,0 +1,18 @@
+# Environments
+venv/
+.env
+
+# Data & Models (Do not upload large datasets or private models)
+data/
+models/svm.onnx
+*.mp4
+*.wav
+*.mp3
+
+# Firebase Security (If you add it later)
+serviceAccountKey.json
+
+# Python cache
+__pycache__/
+*.pyc
+.streamlit/
