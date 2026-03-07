@@ -16,12 +16,18 @@ from src.classifier import ChronosClassifier
 clf = ChronosClassifier()
 
 # --- 2. REAL EMAIL SENDER FUNCTION ---
+# --- 2. SECURE EMAIL SENDER FUNCTION ---
 def send_otp_email(receiver_email, otp_code):
-    # Pull credentials safely from Streamlit's hidden vault
-    sender_email = st.secrets["EMAIL_USER"] 
-    app_password = st.secrets["EMAIL_PASS"]
+    """Sends a forensic-branded OTP using Streamlit Secrets."""
+    # Pull credentials from Streamlit's Advanced Settings > Secrets vault
+    try:
+        sender_email = st.secrets["EMAIL_USER"] 
+        app_password = st.secrets["EMAIL_PASS"]
+    except KeyError:
+        st.error("Missing Secrets: Please configure EMAIL_USER and EMAIL_PASS in Streamlit Cloud.")
+        return False
     
-    msg = MIMEText(f"🛡️ CHRONOS-VOICE SECURITY\n\nYour OTP is: {otp_code}")
+    msg = MIMEText(f"🛡️ CHRONOS-VOICE SECURITY ALERT\n\nYour Passcode is: {otp_code}")
     msg['Subject'] = 'Chronos-Voice: Secure Access OTP'
     msg['From'] = sender_email
     msg['To'] = receiver_email
@@ -32,6 +38,7 @@ def send_otp_email(receiver_email, otp_code):
             server.sendmail(sender_email, receiver_email, msg.as_string())
         return True
     except Exception as e:
+        st.error(f"OTP Transmission Failed: {e}")
         return False
 
 # --- 3. SESSION STATE NAVIGATION ---
