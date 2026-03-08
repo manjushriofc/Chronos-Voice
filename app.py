@@ -99,92 +99,15 @@ translations = {
 }
 t = translations.get(st.session_state.lang, translations["English"])
 
-# --- 5. UI STYLING (REPLACED WITH RURAL-FRIENDLY LAYER) ---
+# --- 5. UI STYLING ---
 st.set_page_config(page_title="Chronos-Voice Forensic", layout="wide")
-
 st.markdown("""
 <style>
-    /* 1. RURAL-FRIENDLY BACKGROUND LAYER */
-    /* Uses soft sunlight and field colors to build trust with village users [cite: 1] */
-    .stApp {
-        background: 
-            linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
-            url("https://www.transparenttextures.com/patterns/natural-paper.png"),
-            linear-gradient(135deg, #e3f2fd 0%, #f1f8e9 50%, #fff9c4 100%) !important;
-        background-attachment: fixed;
-    }
-
-    /* 2. SUBTLE VILLAGE SILHOUETTE */
-    /* Adds a non-intimidating, friendly atmosphere [cite: 1] */
-    .stApp::before {
-        content: "";
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 250px;
-        background: url("https://img.icons8.com/external-line-gradient-kash08/512/external-Field-agriculture-line-gradient-kash08.png") no-repeat bottom center;
-        background-size: contain;
-        opacity: 0.07;
-        z-index: -1;
-    }
-
-    /* 3. TRUST-BASED CARDS (PRESERVING YOUR CYBER LOGIC) */
-    /* High-contrast for readability in sunlight */
-    .cyber-card { 
-        background: rgba(255, 255, 255, 0.95) !important; 
-        backdrop-filter: blur(10px); 
-        border: 2px solid #81c784 !important; /* Safety Green Border */
-        border-radius: 20px; 
-        padding: 40px; 
-        color: #2e7d32 !important;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05) !important;
-    }
-
-    /* 4. TYPOGRAPHY: EARTH TONES */
-    /* Clear and professional for government-style service */
-    h1, h2, h3 { 
-        color: #1b5e20 !important; 
-        text-shadow: none !important; 
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    /* 5. SAFETY BOX (RE-STYLED FOR RURAL AWARENESS) */
-    /* Red-tinted for urgency but soft for trust */
-    .safety-box { 
-        background: rgba(255, 107, 107, 0.15) !important; 
-        border-left: 6px solid #ff6b6b; 
-        padding: 20px; 
-        border-radius: 10px; 
-        margin: 20px 0; 
-        color: #b91c1c !important;
-    }
-
-    /* 6. UPLOADER: ACCESSIBLE DESIGN */
-    /* Clearly marked for easy 'Drag and Drop' */
-    [data-testid="stFileUploader"] { 
-        border: 3px dashed #1976d2 !important; 
-        background: rgba(25, 118, 210, 0.03) !important; 
-        border-radius: 15px !important;
-    }
-
-    /* 7. BUTTONS: SECURE BANKING BLUE */
-    /* Large, clickable buttons for easier mobile/tablet use */
-    .stButton>button {
-        background-color: #1976d2 !important;
-        color: white !important;
-        border-radius: 50px !important;
-        border: none !important;
-        padding: 0.5rem 2rem !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease;
-    }
-    
-    .stButton>button:hover {
-        background-color: #1565c0 !important;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
+    .stApp { background: linear-gradient(135deg, #0c0c1a 0%, #1a1a2e 50%, #16213e 100%); color: #e0e6ed; }
+    h1, h2, h3 { color: #00d4ff !important; text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
+    .cyber-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 20px; padding: 40px; }
+    .safety-box { background: rgba(255, 107, 107, 0.1); border-left: 6px solid #ff6b6b; padding: 20px; border-radius: 10px; margin: 20px 0; }
+    [data-testid="stFileUploader"] { border: 3px dashed #00d4ff !important; background: rgba(0, 212, 255, 0.05) !important; }
 </style>
 """, unsafe_allow_html=True)
 
