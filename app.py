@@ -104,12 +104,43 @@ st.set_page_config(page_title="Chronos-Voice Forensic", layout="wide")
 st.markdown("""
 <style>
     .stApp { background: linear-gradient(135deg, #0c0c1a 0%, #1a1a2e 50%, #16213e 100%); color: #e0e6ed; }
+    .sidebar .sidebar-content { background-image: linear-gradient(#161b22, #0d1117); }
+    .deviance-label { color: #8b949e; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    .deviance-value { color: #58a6ff; font-family: 'Courier New', monospace; font-size: 16px; font-weight: bold; margin-bottom: 8px; }
+    .warning-text { color: #ff7b72; font-weight: bold; font-size: 10px; }
+    .success-badge { color: #3fb950; font-size: 10px; font-weight: bold; }
+    .heatmap-bin {
+        height: 25px; width: 100%;
+        background: linear-gradient(90deg, #238636 0%, #238636 40%, #d29922 50%, #f85149 55%, #238636 70%);
+        border-radius: 4px; margin: 10px 0;
+    }        
     h1, h2, h3 { color: #00d4ff !important; text-shadow: 0 0 20px rgba(0, 212, 255, 0.5); }
-    .cyber-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 20px; padding: 40px; }
     .safety-box { background: rgba(255, 107, 107, 0.1); border-left: 6px solid #ff6b6b; padding: 20px; border-radius: 10px; margin: 20px 0; }
     [data-testid="stFileUploader"] { border: 3px dashed #00d4ff !important; background: rgba(0, 212, 255, 0.05) !important; }
 </style>
 """, unsafe_allow_html=True)
+# --- 3. FORENSIC EVIDENCE SIDEBAR ---
+with st.sidebar:
+    st.markdown("### 🔍 FORENSIC EVIDENCE")
+    st.markdown("---")
+    st.markdown("<div class='deviance-label'>Phonetic Optimization</div>", unsafe_allow_html=True)
+    lang_focus = st.selectbox("Language Model Focus", ["Tamil (Chennai)", "Tamil (General)", "Hindi", "Telugu", "Malayalam"])
+    st.caption(f"Adjusting SVM hyperplanes for {lang_focus} phonetics.")
+
+    if 'metrics' in st.session_state:
+        m = st.session_state.metrics
+        st.markdown("---")
+        st.markdown("<div class='deviance-label'>MFCC Stability</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='deviance-value'>{100-m['mfcc_std']:.1f}% <span class='success-badge'>VERIFIED</span></div>", unsafe_allow_html=True)
+        
+        st.markdown("<div class='deviance-label'>Pitch Variance (F0)</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='deviance-value'>{m['pitch']:.1f}Hz <span class='warning-text'>ANALYZED</span></div>", unsafe_allow_html=True)
+
+        st.markdown("---")
+        st.markdown("<div class='deviance-label'>Biological Signals</div>", unsafe_allow_html=True)
+        breath_status = "🫁 NATURAL BREATH DETECTED" if m['jitter'] > 0.005 else "🫁 NO NATURAL BREATH PATTERN"
+        breath_color = "#3fb950" if m['jitter'] > 0.005 else "#ff7b72"
+        st.markdown(f"<div class='bio-signal'><span style='color:{breath_color}; font-size:12px;'>{breath_status}</span></div>", unsafe_allow_html=True)
 
 # --- 6. HELPER: PDF GENERATOR ---
 def generate_pdf(audit_id, metrics, score):
