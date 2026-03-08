@@ -4,7 +4,6 @@ venv/
 
 # Data & Models (Do not upload large datasets or private models)
 data/
-models/svm.onnx
 *.mp4
 *.wav
 *.mp3
